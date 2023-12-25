@@ -44,11 +44,14 @@ const MainContainer = () => {
       setHandler(onDeleteData?.data[0]);
       setAlertText('삭제');
     }
+  }, [onDeleteData.isSuccess]);
+
+  useEffect(() => {
     if (onUpdateData.isSuccess) {
       setHandler(onUpdateData?.data);
       setAlertText('수정');
     }
-  }, [onDeleteData.isSuccess, onUpdateData.isSuccess]);
+  }, [onUpdateData.isSuccess]);
 
   useEffect(() => {
     if (
