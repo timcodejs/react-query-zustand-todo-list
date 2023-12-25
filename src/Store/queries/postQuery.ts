@@ -53,3 +53,21 @@ export const useDeleteDataQuery = (id: number) => {
 
   return { data, mutate, isError, error, isSuccess };
 };
+
+export const useUpdateDataQuery = (json: any) => {
+  const { data, mutate, isError, error, isSuccess } = useMutation(
+    posts?.updateData('updateData').queryKey,
+    () =>
+      fetch(`/todos/${json?.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      })
+        .then((res: any) => res.json())
+        .then((data) => data)
+  );
+
+  return { data, mutate, isError, error, isSuccess };
+};

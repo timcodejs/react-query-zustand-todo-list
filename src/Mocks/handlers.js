@@ -25,5 +25,14 @@ export const handlers = [
 
     data.todos = data.todos.filter((e) => e.id !== Number(id));
     return HttpResponse.json(Array.from(deletedPost.values()));
+  }),
+
+  // 할일 수정
+  http.put('/todos/:id', async ({ request, params }) => {
+    const { id } = params;
+    const nextPost = await request.json();
+    const findIdx = data.todos.findIndex(i => i.id === Number(id));
+    data.todos[findIdx] = nextPost;
+    return HttpResponse.json(nextPost);
   })
 ];
