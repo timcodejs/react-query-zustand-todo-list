@@ -100,6 +100,24 @@ const MainContainer = () => {
   if (isError) return <>{error?.message}</>;
   return (
     <div className='App'>
+      <Input>
+        {!isEdit && (
+          <form
+            onSubmit={(e: any) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <input
+              className='input-text'
+              type='text'
+              onChange={handleChange}
+              ref={inputRef}
+            />
+            <input className='input-btn' type='submit' value='할 일 추가' />
+          </form>
+        )}
+      </Input>
       {postsDatas?.map((e: any) => {
         return (
           <Item key={e?.id}>
@@ -137,24 +155,33 @@ const MainContainer = () => {
           </Item>
         );
       })}
-      <div>
-        {!isEdit && (
-          <form
-            onSubmit={(e: any) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-          >
-            <input type='text' onChange={handleChange} ref={inputRef} />
-            <input type='submit' value='추가' />
-          </form>
-        )}
-      </div>
     </div>
   );
 };
 
 export default MainContainer;
+
+const Input = styled.div`
+  height: 60px;
+
+  .input-text {
+    width: 150px;
+    height: 25px;
+    margin-right: 5px;
+    border: 1px solid #8d8d8d;
+    border-radius: 5px;
+    padding-left: 10px;
+  }
+
+  .input-btn {
+    height: 30px;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    background-color: #8d8d8d;
+    cursor: pointer;
+  }
+`;
 
 const Item = styled.div`
   display: flex;
