@@ -11,9 +11,8 @@ const Header = ({ children }: WrapperProps) => {
   return (
     <>
       <HeaderNav>
-        <div onClick={() => navigation('/')}>메인</div>
-        <div onClick={() => navigation('/todo')}>할일</div>
-        <div onClick={() => navigation('/todo/detail/:id')}>상세</div>
+        <div onClick={() => navigation('/')}>할일</div>
+        <div onClick={() => navigation('/auth')}>로그인</div>
       </HeaderNav>
       {children}
     </>

@@ -6,3 +6,10 @@ export const posts = createQueryKeys('posts', {
   deleteData: (storeCode: string) => [storeCode],
   updateData: (storeCode: string) => [storeCode],
 });
+
+export const auths = createQueryKeys('auths', {
+  getAuth: (storeCode: string) => [storeCode],
+  postAuth: (storeCode: string) => [storeCode],
+  deleteAuth: (storeCode: string) => [storeCode],
+  updateAuth: (storeCode: string) => [storeCode],
+});
