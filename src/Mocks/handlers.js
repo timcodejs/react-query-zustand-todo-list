@@ -34,5 +34,5 @@ export const handlers = [
     const findIdx = data.todos.findIndex(i => i.id === Number(id));
     data.todos[findIdx] = nextPost;
     return HttpResponse.json(nextPost);
-  })
+  }),
 ];

@@ -13,3 +13,7 @@ export const auths = createQueryKeys('auths', {
   deleteAuth: (storeCode: string) => [storeCode],
   updateAuth: (storeCode: string) => [storeCode],
 });
+
+export const scroll = createQueryKeys('scroll', {
+  getScroll: (storeCode: string) => [storeCode],
+});

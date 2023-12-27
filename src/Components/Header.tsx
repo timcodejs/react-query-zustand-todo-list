@@ -12,6 +12,7 @@ const Header = ({ children }: WrapperProps) => {
     <>
       <HeaderNav>
         <div onClick={() => navigation('/')}>할 일</div>
+        <div onClick={() => navigation('/scroll')}>스크롤 테스트</div>
         <div onClick={() => navigation('/auth')}>로그인</div>
       </HeaderNav>
       {children}
@@ -26,11 +27,11 @@ const HeaderNav = styled.div`
   margin-bottom: 20px;
 
   & > div {
-    width: 100px;
     display: flex;
     justify-content: center;
     font-size: 20px;
     font-weight: bold;
+    margin: 0 15px;
     cursor: pointer;
   }
 `;

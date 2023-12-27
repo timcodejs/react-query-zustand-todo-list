@@ -4,7 +4,7 @@ import { auths } from '../../Utility/utils/queryKeys';
 
 export const useGetAuthQuery = () => {
   const {
-    data: postsDatas,
+    data: authDatas,
     isLoading,
     isFetching,
     isError,
@@ -15,7 +15,7 @@ export const useGetAuthQuery = () => {
       .then((res: any) => res.json())
       .then((data) => data)
   );
-  return { postsDatas, isLoading, isFetching, isError, error, refetch };
+  return { authDatas, isLoading, isFetching, isError, error, refetch };
 };
 
 export const usePostAuthQuery = (json: any) => {

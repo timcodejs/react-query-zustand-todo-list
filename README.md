@@ -19,9 +19,9 @@ export const usePostStore = create((set) => ({
 
 ```
 
-# Muck Service Worker (src/Mocks/handlers.js)
+# Mock Service Worker (src/Mocks/handlers.js)
 
-- 서버 코드 없이 data fetching을 테스트하기 위해 Muck Service Worker(msw) 라이브러리를 사용하여 테스트 진행.
+- 서버 코드 없이 data fetching을 테스트하기 위해 Mock Service Worker(msw) 라이브러리를 사용하여 테스트 진행.
 - 버전 변경에 따른 msw 라이브러리의 rest 객체 대신 http 객체 사용.
 - 임의의 객체 데이터를 만들고(data.json) handlers.js에서 불러와 적용.
 - fetch API 응답을 대체하기 위해 msw의 HttpResponse 클래스를 사용하여 서버 응답 return.
