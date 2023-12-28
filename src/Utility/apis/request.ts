@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios';
-import { GET } from '../utils/Enums';
+import { RequestEnum } from '../utils/Enums';
 
 export const request = async (
   method: Method,
@@ -7,7 +7,7 @@ export const request = async (
   headers: {},
   jsonData: any
 ) => {
-  if (method === GET) {
+  if (method === RequestEnum.GET) {
     try {
       const { data } = await axios({
         method: method,
