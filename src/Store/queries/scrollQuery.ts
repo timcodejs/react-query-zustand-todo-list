@@ -8,12 +8,13 @@ export const useGetScrollDataQuery = (inView: boolean) => {
     fetchNextPage,
     hasNextPage,
     isFetching,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: scroll?.getScroll('getScroll').queryKey,
     queryFn: async ({ pageParam = 1 }) =>
       await request(
         'get',
-        `https://api.github.com/search/repositories?q=topic:reactjs&per_page=30&page=${pageParam}`,
+        `https://api.github.com/search/repositories?q=topic:reactjs&per_page=15&page=${pageParam}`,
         {},
         {}
       ),
@@ -23,8 +24,6 @@ export const useGetScrollDataQuery = (inView: boolean) => {
       const maxPage = lastPage.total_count / 15; // 한번에 30개씩 보여주기
       const nextPage = allPages.length + 1;
       return nextPage <= maxPage ? nextPage : undefined; // 다음 데이터가 있는지 없는지 판단
-      // const nextPage = lastPage.limit + 5;
-      // return inView ? nextPage : undefined;
     },
     select: (data) => ({
       pages: data.pages,
@@ -33,5 +32,11 @@ export const useGetScrollDataQuery = (inView: boolean) => {
     initialPageParam: 1,
   });
 
-  return { scrollDatas, fetchNextPage, hasNextPage, isFetching };
+  return {
+    scrollDatas,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  };
 };

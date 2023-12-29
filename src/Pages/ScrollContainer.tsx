@@ -5,8 +5,13 @@ import { useGetScrollDataQuery } from '../Store/queries/scrollQuery';
 
 const ScrollContainer = () => {
   const [ref, inView] = useInView({ threshold: 0.3 });
-  const { scrollDatas, fetchNextPage, hasNextPage } =
-    useGetScrollDataQuery(inView);
+  const {
+    scrollDatas,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useGetScrollDataQuery(inView);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -30,9 +35,17 @@ const ScrollContainer = () => {
           </Fragment>
         );
       })}
-      <div id='scrollArea' ref={ref}>
-        ---
+      <div>
+        {isFetchingNextPage
+          ? 'Loading more...'
+          : hasNextPage
+          ? 'Load Newer'
+          : 'Nothing more to load'}
       </div>
+      <div>
+        {isFetching && !isFetchingNextPage ? 'Background Updating...' : null}
+      </div>
+      <div id='scrollArea' ref={ref}></div>
     </>
   );
 };
