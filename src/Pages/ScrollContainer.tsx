@@ -1,28 +1,33 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useInView } from 'react-intersection-observer';
 import { useGetScrollDataQuery } from '../Store/queries/scrollQuery';
 
 const ScrollContainer = () => {
-  const [ref, inView] = useInView();
-  const { scrollDatas, fetchNextPage } = useGetScrollDataQuery(inView);
+  const [ref, inView] = useInView({ threshold: 0.3 });
+  const { scrollDatas, fetchNextPage, hasNextPage } =
+    useGetScrollDataQuery(inView);
 
   useEffect(() => {
-    if (inView) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView]);
 
-  console.log(scrollDatas);
-
   return (
     <>
-      {scrollDatas?.pages?.quotes?.map((e: any, i: number) => {
+      {scrollDatas?.pages?.map((page: any, idx: number) => {
         return (
-          <div key={i}>
-            <div>{e.author}</div>
-            <Item>{e.quote}</Item>
-          </div>
+          <Fragment key={idx}>
+            {page?.items?.map((e: any, i: number) => {
+              return (
+                <div key={i}>
+                  <div>{e.name}</div>
+                  <Item>{e.description}</Item>
+                </div>
+              );
+            })}
+          </Fragment>
         );
       })}
       <div id='scrollArea' ref={ref}>
