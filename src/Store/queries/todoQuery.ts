@@ -1,6 +1,12 @@
 import { useQuery } from '../../Business/hooks/useQuery';
 import { useMutation } from '../../Business/hooks/useMutation';
 import { posts } from '../../Utility/utils/queryKeys';
+import {
+  fetchTodoList,
+  fetchTodoPost,
+  fetchTodoDelete,
+  fetchTodoUpdate,
+} from '../../Utility/apis/fetchTodo';
 
 export const useGetDataQuery = () => {
   const {
@@ -10,27 +16,14 @@ export const useGetDataQuery = () => {
     isError,
     error,
     refetch,
-  } = useQuery(posts?.getData('getData').queryKey, () =>
-    fetch('/todos')
-      .then((res: any) => res.json())
-      .then((data) => data)
-  );
+  } = useQuery(posts?.getData('getData').queryKey, () => fetchTodoList());
   return { postsDatas, isLoading, isFetching, isError, error, refetch };
 };
 
 export const usePostDataQuery = (json: any) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
     posts?.postData('postData').queryKey,
-    () =>
-      fetch('/todos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(json),
-      })
-        .then((res: any) => res.json())
-        .then((data) => data)
+    () => fetchTodoPost(json)
   );
 
   return { data, mutate, isError, error, isSuccess };
@@ -39,16 +32,7 @@ export const usePostDataQuery = (json: any) => {
 export const useDeleteDataQuery = (id: number) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
     posts?.deleteData('deleteData').queryKey,
-    () =>
-      fetch(`/todos/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: id }),
-      })
-        .then((res: any) => res.json())
-        .then((data) => data)
+    () => fetchTodoDelete(id)
   );
 
   return { data, mutate, isError, error, isSuccess };
@@ -57,16 +41,7 @@ export const useDeleteDataQuery = (id: number) => {
 export const useUpdateDataQuery = (json: any) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
     posts?.updateData('updateData').queryKey,
-    () =>
-      fetch(`/todos/${json?.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(json),
-      })
-        .then((res: any) => res.json())
-        .then((data) => data)
+    () => fetchTodoUpdate(json)
   );
 
   return { data, mutate, isError, error, isSuccess };

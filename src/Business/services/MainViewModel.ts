@@ -5,7 +5,7 @@ import {
   usePostDataQuery,
   useDeleteDataQuery,
   useUpdateDataQuery,
-} from '../../Store/queries/postQuery';
+} from '../../Store/queries/todoQuery';
 import { IData, MainViewModelData } from '../../Utility/utils/Types';
 
 export const MainViewModel = ({

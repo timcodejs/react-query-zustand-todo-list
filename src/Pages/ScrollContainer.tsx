@@ -11,7 +11,7 @@ const ScrollContainer = () => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetScrollDataQuery(inView);
+  } = useGetScrollDataQuery();
 
   useEffect(() => {
     if (inView && hasNextPage) {

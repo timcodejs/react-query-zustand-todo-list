@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { IData } from '../Utility/utils/Types';
-import { useGetDataQuery } from '../Store/queries/postQuery';
+import { useGetDataQuery } from '../Store/queries/todoQuery';
 import { MainViewModel } from '../Business/services/MainViewModel';
 import editPNG from '../Assets/images/pen.png';
 import checkPNG from '../Assets/images/check.png';

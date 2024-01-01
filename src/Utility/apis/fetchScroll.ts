@@ -1,0 +1,11 @@
+import { request } from './request';
+
+const fetchScroll = async (pageParam: number) =>
+  await request(
+    'get',
+    `https://api.github.com/search/repositories?q=topic:reactjs&per_page=15&page=${pageParam}`,
+    {},
+    {}
+  );
+
+export { fetchScroll };

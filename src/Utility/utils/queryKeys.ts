@@ -7,13 +7,6 @@ export const posts = createQueryKeys('posts', {
   updateData: (storeCode: string) => [storeCode],
 });
 
-export const auths = createQueryKeys('auths', {
-  getAuth: (storeCode: string) => [storeCode],
-  postAuth: (storeCode: string) => [storeCode],
-  deleteAuth: (storeCode: string) => [storeCode],
-  updateAuth: (storeCode: string) => [storeCode],
-});
-
 export const scroll = createQueryKeys('scroll', {
   getScroll: (storeCode: string) => [storeCode],
 });
