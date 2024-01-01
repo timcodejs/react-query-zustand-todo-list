@@ -1,21 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { usePostStore } from '../Store/stores/postStore';
-import { useAlertStore } from '../Store/stores/alertStore';
-import {
-  useGetDataQuery,
-  usePostDataQuery,
-  useDeleteDataQuery,
-  useUpdateDataQuery,
-} from '../Store/queries/postQuery';
+import { IData } from '../Utility/utils/Types';
+import { useGetDataQuery } from '../Store/queries/postQuery';
+import { MainViewModel } from '../Business/services/MainViewModel';
 import editPNG from '../Assets/images/pen.png';
 import checkPNG from '../Assets/images/check.png';
 import deletePNG from '../Assets/images/delete.png';
-
-interface IData {
-  id: number;
-  title: string | undefined;
-}
 
 const MainContainer = () => {
   // hook
@@ -23,78 +13,23 @@ const MainContainer = () => {
   const editInputRef = useRef<HTMLInputElement | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isEditObject, setIsEditObject] = useState<IData>();
-  const [selectId, setSelectId] = useState<number>(0);
-  const [data, setData] = useState<IData>({
-    id: 0,
-    title: '',
-  });
-
-  // store
-  const { setHandler } = usePostStore();
-  const { setAlertText } = useAlertStore();
 
   // query
   const { postsDatas, isLoading, isError, error, refetch } = useGetDataQuery();
-  const onSaveData = usePostDataQuery(data);
-  const onDeleteData = useDeleteDataQuery(selectId);
-  const onUpdateData = useUpdateDataQuery(data);
-
-  useEffect(() => {
-    if (onDeleteData.isSuccess) {
-      setHandler(onDeleteData?.data[0]);
-      setAlertText('삭제');
-    }
-  }, [onDeleteData.isSuccess]);
-
-  useEffect(() => {
-    if (onUpdateData.isSuccess) {
-      setHandler(onUpdateData?.data);
-      setAlertText('수정');
-    }
-  }, [onUpdateData.isSuccess]);
+  const MainView = MainViewModel({ inputRef, setIsEditObject, setIsEdit });
 
   useEffect(() => {
     if (
-      onSaveData.isSuccess ||
-      onDeleteData.isSuccess ||
-      onUpdateData.isSuccess
+      MainView?.onSaveData?.isSuccess ||
+      MainView?.onDeleteData?.isSuccess ||
+      MainView?.onUpdateData?.isSuccess
     )
       refetch();
-  }, [onSaveData.isSuccess, onDeleteData.isSuccess, onUpdateData.isSuccess]);
-
-  const handleChange = (e: any) => {
-    setData({
-      id: Math.floor(Math.random() * (100 - 4) + 4),
-      title: e?.target?.value,
-    });
-  };
-
-  const handleEditChange = (e: any, v: any) => {
-    setData({
-      id: e.id,
-      title: v.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    if (inputRef?.current?.value !== '') {
-      onSaveData.mutate();
-      setHandler(data);
-      setAlertText('추가');
-    }
-    if (inputRef?.current) inputRef.current.value = '';
-  };
-
-  const handleRemove = (id: number) => {
-    setSelectId(id);
-    onDeleteData.mutate();
-  };
-
-  const handleEdit = (e: any) => {
-    onUpdateData.mutate();
-    setIsEditObject(undefined);
-    setIsEdit(false);
-  };
+  }, [
+    MainView?.onSaveData.isSuccess,
+    MainView?.onDeleteData.isSuccess,
+    MainView?.onUpdateData.isSuccess,
+  ]);
 
   if (isLoading) return <div>...loading</div>;
   if (isError) return <>{error?.message}</>;
@@ -105,13 +40,13 @@ const MainContainer = () => {
           <form
             onSubmit={(e: any) => {
               e.preventDefault();
-              handleSubmit();
+              MainView?.handleSubmit();
             }}
           >
             <input
               className='input-text'
               type='text'
-              onChange={handleChange}
+              onChange={MainView?.handleChange}
               ref={inputRef}
             />
             <input className='input-btn' type='submit' value='할 일 추가' />
@@ -126,14 +61,14 @@ const MainContainer = () => {
                 type='text'
                 ref={editInputRef}
                 defaultValue={e?.title}
-                onChange={(v: any) => handleEditChange(e, v)}
+                onChange={(v: any) => MainView?.handleEditChange(e, v)}
               />
             ) : (
               <div>{e?.title}</div>
             )}
             <div className='btn-container'>
               {isEdit && isEditObject?.id === e.id ? (
-                <div className='btn c-btn' onClick={handleEdit}>
+                <div className='btn c-btn' onClick={MainView?.handleEdit}>
                   <img src={checkPNG} alt='체크 이미지' />
                 </div>
               ) : (
@@ -148,7 +83,10 @@ const MainContainer = () => {
                 </div>
               )}
 
-              <div className='btn x-btn' onClick={() => handleRemove(e?.id)}>
+              <div
+                className='btn x-btn'
+                onClick={() => MainView?.handleRemove(e?.id)}
+              >
                 <img src={deletePNG} alt='휴지통 이미지' />
               </div>
             </div>

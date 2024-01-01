@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') worker.start();
  * defaultOptions queries
  * @param retry API가 실패하면 설정한 값만큼 재시도 하는 옵션(react query는 기본적으로 요청이 실패하면 3번의 재시도를 거치기 때문에 retry는 0으로 세팅)
  *
- * @param cacheTime default 3분. 캐싱 유지 시간.
+ * @param gcTime default 3분. 캐싱 유지 시간.
  *                  캐시 구조에 저장된 데이터는 메모리상에 존재하게 된다. 이 때, 메모리에 저장되어 있는 캐시 데이터가 언제까지 유지될지를 말해주는 옵션.
  *                  언마운트된 후 어느 시점까지 메모리에 데이터를 저장하여 캐싱할 것인지를 결정. 시간이 지나면 가비지 컬렉팅 된다.
  *
@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'development') worker.start();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // retry: 0,
+      retry: 1,
       staleTime: 5000,
       // refetchOnMount: false,
       // refetchOnWindowFocus: false,
@@ -67,7 +67,7 @@ const queryClient = new QueryClient({
       // enabled: false,
     },
     mutations: {
-      // retry: 0,
+      retry: 1,
     },
   },
   queryCache: new QueryCache({}),

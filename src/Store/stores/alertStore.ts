@@ -2,12 +2,18 @@ import { create } from 'zustand';
 
 interface ModuleData {
   alertText: string;
-  setAlertText: (e: string) => void;
+  actions: {
+    setAlertText: (e: string) => void;
+  };
 }
 
-type ModuleDataStore = ModuleData & {};
-
-export const useAlertStore = create<ModuleDataStore>((set) => ({
+const useAlertStore = create<ModuleData>((set, get) => ({
   alertText: '',
-  setAlertText: (alertText) => set(() => ({ alertText: alertText })),
+  actions: {
+    setAlertText: (alertText) => set(() => ({ alertText: alertText })),
+  },
 }));
+
+export const useAlertActions = () => useAlertStore((store) => store.actions);
+export const useAlertText = () => useAlertStore((store) => store.alertText);
+export const getAlerttState = () => useAlertStore.getState();
