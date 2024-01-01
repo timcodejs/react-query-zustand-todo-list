@@ -1,10 +1,11 @@
-const fetchTodoList = () =>
-  fetch('/todos')
+const fetchTodoList = async () => {
+  return await fetch('/todos')
     .then((res: any) => res.json())
     .then((data) => data);
+};
 
-const fetchTodoPost = (json: any) =>
-  fetch('/todos', {
+const fetchTodoPost = async (json: any) => {
+  return await fetch('/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -13,20 +14,22 @@ const fetchTodoPost = (json: any) =>
   })
     .then((res: any) => res.json())
     .then((data) => data);
+};
 
-const fetchTodoDelete = (id: number) =>
-  fetch(`/todos/${id}`, {
+const fetchTodoDelete = async (json: any) => {
+  return await fetch(`/todos/${json?.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ id: json?.id }),
   })
     .then((res: any) => res.json())
     .then((data) => data);
+};
 
-const fetchTodoUpdate = (json: any) =>
-  fetch(`/todos/${json?.id}`, {
+const fetchTodoUpdate = async (json: any) => {
+  return await fetch(`/todos/${json?.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -35,5 +38,6 @@ const fetchTodoUpdate = (json: any) =>
   })
     .then((res: any) => res.json())
     .then((data) => data);
+};
 
 export { fetchTodoList, fetchTodoPost, fetchTodoDelete, fetchTodoUpdate };

@@ -12,8 +12,8 @@ export const MainViewModel = ({
   inputRef,
   setIsEditObject,
   setIsEdit,
+  refetch,
 }: MainViewModelData) => {
-  const [selectId, setSelectId] = useState<number>(0);
   const [data, setData] = useState<IData>({
     id: 0,
     title: '',
@@ -25,7 +25,7 @@ export const MainViewModel = ({
 
   // query
   const onSaveData = usePostDataQuery(data);
-  const onDeleteData = useDeleteDataQuery(selectId);
+  const onDeleteData = useDeleteDataQuery(data);
   const onUpdateData = useUpdateDataQuery(data);
 
   useEffect(() => {
@@ -41,6 +41,15 @@ export const MainViewModel = ({
       setAlertText('수정');
     }
   }, [onUpdateData?.isSuccess]);
+
+  useEffect(() => {
+    if (
+      onSaveData?.isSuccess ||
+      onDeleteData?.isSuccess ||
+      onUpdateData?.isSuccess
+    )
+      refetch();
+  }, [onSaveData.isSuccess, onDeleteData.isSuccess, onUpdateData.isSuccess]);
 
   const handleChange = (e: any) => {
     setData({
@@ -65,12 +74,15 @@ export const MainViewModel = ({
     if (inputRef?.current) inputRef.current.value = '';
   };
 
-  const handleRemove = (id: number) => {
-    setSelectId(id);
+  const handleRemove = (e: any) => {
+    setData({
+      id: e.id,
+      title: e.title,
+    });
     onDeleteData.mutate();
   };
 
-  const handleEdit = (e: any) => {
+  const handleEdit = () => {
     onUpdateData.mutate();
     setIsEditObject(undefined);
     setIsEdit(false);
@@ -79,7 +91,6 @@ export const MainViewModel = ({
   return {
     data,
     setData,
-    setSelectId,
     handleChange,
     handleEditChange,
     handleSubmit,

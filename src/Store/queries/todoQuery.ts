@@ -22,17 +22,17 @@ export const useGetDataQuery = () => {
 
 export const usePostDataQuery = (json: any) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
-    posts?.postData('postData').queryKey,
+    posts?.postData(json?.id).queryKey,
     () => fetchTodoPost(json)
   );
 
   return { data, mutate, isError, error, isSuccess };
 };
 
-export const useDeleteDataQuery = (id: number) => {
+export const useDeleteDataQuery = (json: any) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
-    posts?.deleteData('deleteData').queryKey,
-    () => fetchTodoDelete(id)
+    posts?.deleteData(`deleteData`).queryKey,
+    () => fetchTodoDelete(json)
   );
 
   return { data, mutate, isError, error, isSuccess };
@@ -40,7 +40,7 @@ export const useDeleteDataQuery = (id: number) => {
 
 export const useUpdateDataQuery = (json: any) => {
   const { data, mutate, isError, error, isSuccess } = useMutation(
-    posts?.updateData('updateData').queryKey,
+    posts?.updateData(json?.id).queryKey,
     () => fetchTodoUpdate(json)
   );
 
