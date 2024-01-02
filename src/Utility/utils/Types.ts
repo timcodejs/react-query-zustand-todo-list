@@ -4,6 +4,7 @@ export interface IData {
 }
 
 export interface MainViewModelData {
+  btnRef: any;
   inputRef: any;
   setIsEditObject: (e: IData | undefined) => void;
   setIsEdit: (e: boolean) => void;
