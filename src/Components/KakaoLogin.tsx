@@ -27,6 +27,7 @@ const Kakao = styled.div`
   height: 60px;
   background-color: rgb(252, 236, 79);
   cursor: pointer;
+  margin-top: 10px;
 
   .align {
     height: 60px;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { toast } from 'react-toastify';
 import KakaoLogin from '../Components/KakaoLogin';
 import NaverLogin from '../Components/NaverLogin';
 import GoogleLogin from '../Components/GoogleLogin';
@@ -7,6 +8,7 @@ import { NaverCallback } from '../Business/services/NaverCallback';
 import { GoogleCallback } from '../Business/services/GoogleCallback';
 
 const LoginContainer = () => {
+  const notify = (text: string) => toast(text);
   const kakao: any = KakaoCallback();
   const naver: any = NaverCallback();
   const google: any = GoogleCallback();
@@ -39,27 +41,48 @@ const LoginContainer = () => {
       </div>
     );
   return (
-    <>
-      <Header>
-        <div className='H1'>회원가입하기</div>
-        <div className='H6'>소셜 로그인 및 이메일로 가입할 수 있습니다.</div>
-      </Header>
-      <KakaoLogin />
-      <NaverLogin />
-      <GoogleLogin onGoogleSocialLogin={google?.onGoogleSocialLogin} />
-      <Other>
-        <div className='other-line'>
-          <div></div>
-          <p>또는</p>
-          <div></div>
-        </div>
-        <div className='other-sign'>ID/PW 회원가입</div>
-      </Other>
-    </>
+    <Wrap>
+      <div>
+        <Header>
+          <div className='H1'>회원가입하기</div>
+          <div className='H6'>소셜 로그인 및 이메일로 가입할 수 있습니다.</div>
+        </Header>
+        <GoogleLogin onGoogleSocialLogin={google?.onGoogleSocialLogin} />
+        <KakaoLogin />
+        <NaverLogin />
+        <Other>
+          <div className='other-line'>
+            <div></div>
+            <p>또는</p>
+            <div></div>
+          </div>
+          <div
+            className='other-sign'
+            onClick={() => notify(`소셜 로그인을 진행해 주세요~!`)}
+          >
+            ID/PW 회원가입
+          </div>
+        </Other>
+      </div>
+    </Wrap>
   );
 };
 
 export default LoginContainer;
+
+const Wrap = styled.div`
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+  }
+`;
 
 const Header = styled.div`
   width: 400px;

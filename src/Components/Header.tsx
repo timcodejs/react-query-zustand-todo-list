@@ -24,7 +24,7 @@ export default Header;
 
 const HeaderNav = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin: 20px 0;
 
   & > div {
     display: flex;

@@ -52,8 +52,21 @@ const TodoList = ({
 export default TodoList;
 
 const Item = styled.div`
+  width: fit-content;
   display: flex;
   margin-bottom: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0;
+
+  input {
+    width: 50vw;
+    margin-right: 10px;
+    border: 1px solid #8d8d8d;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 18px;
+  }
 
   .btn-container {
     display: flex;
@@ -61,8 +74,10 @@ const Item = styled.div`
   }
 
   .title {
+    width: 50vw;
     font-size: 18px;
     font-weight: bold;
+    padding-left: 10px;
   }
 
   .btn {
@@ -89,6 +104,6 @@ const Item = styled.div`
   }
 
   img {
-    width: 15px;
+    width: 20px;
   }
 `;
