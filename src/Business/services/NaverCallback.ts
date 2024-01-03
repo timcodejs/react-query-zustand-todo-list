@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { STORAGE_ENUM } from '../../Utility/utils/Enums';
+import { removeToken, setToken } from '../../Utility/utils/Storage';
 import { useAuthStore } from '../../Store/stores/authStore';
 
 export const NaverCallback = () => {
@@ -53,6 +55,7 @@ export const NaverCallback = () => {
 
     setNaverToken(true);
     setAccessToken(token);
+    setToken(localStorage, STORAGE_ENUM.ACCESS_TOKEN, token);
   };
 
   useEffect(() => {
@@ -64,6 +67,7 @@ export const NaverCallback = () => {
     isNaverLogin.logout();
     setNaverToken(false);
     setAccessToken('');
+    removeToken(STORAGE_ENUM.ACCESS_TOKEN);
   };
 
   return { naverToken, isNaverLogin, naverLogout };

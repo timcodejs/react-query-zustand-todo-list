@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import KakaoLogin from '../Components/KakaoLogin';
 import NaverLogin from '../Components/NaverLogin';
+import GoogleLogin from '../Components/GoogleLogin';
 import { KakaoCallback } from '../Business/services/KakaoCallback';
 import { NaverCallback } from '../Business/services/NaverCallback';
+import { GoogleCallback } from '../Business/services/GoogleCallback';
 
 const LoginContainer = () => {
   const kakao: any = KakaoCallback();
   const naver: any = NaverCallback();
+  const google: any = GoogleCallback();
 
   if (kakao.onInfoData.isSuccess)
     return (
@@ -27,6 +30,14 @@ const LoginContainer = () => {
         <Logout onClick={naver?.naverLogout}>로그아웃</Logout>
       </div>
     );
+  if (google?.isSuccess)
+    return (
+      <div>
+        <div>구글 로그인 성공! 환영합니다 {google?.userData?.name}님</div>
+        <Logout onClick={() => google.useGoogleLogout()}>로그아웃</Logout>
+        <div style={{ display: 'none' }} id='naverIdLogin' />
+      </div>
+    );
   return (
     <>
       <Header>
@@ -35,6 +46,7 @@ const LoginContainer = () => {
       </Header>
       <KakaoLogin />
       <NaverLogin />
+      <GoogleLogin onGoogleSocialLogin={google?.onGoogleSocialLogin} />
       <Other>
         <div className='other-line'>
           <div></div>

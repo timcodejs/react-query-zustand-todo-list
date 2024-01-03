@@ -5,6 +5,8 @@ import {
   useKakaoInfoQuery,
   useKakaoLogoutQuery,
 } from '../../Store/queries/kakaoOauthQuery';
+import { STORAGE_ENUM } from '../../Utility/utils/Enums';
+import { removeToken, setToken } from '../../Utility/utils/Storage';
 
 export const KakaoCallback = () => {
   const params = new URL(document.location.toString()).searchParams;
@@ -37,6 +39,11 @@ export const KakaoCallback = () => {
     if (onTokenData.isSuccess) {
       setKakaoToken(true);
       setAccessToken(onTokenData.data.access_token);
+      setToken(
+        localStorage,
+        STORAGE_ENUM.ACCESS_TOKEN,
+        onTokenData.data.access_token
+      );
     }
   }, [onTokenData.isSuccess]);
 
@@ -48,6 +55,7 @@ export const KakaoCallback = () => {
     if (onLogoutData.isSuccess) {
       setKakaoToken(false);
       setAccessToken('');
+      removeToken(STORAGE_ENUM.ACCESS_TOKEN);
       window.location.href = '/oauth';
     }
   }, [onLogoutData.isSuccess]);

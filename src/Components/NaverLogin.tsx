@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import styled from '@emotion/styled';
-import naver from '../Assets/images/naver.png';
+import naverIcon from '../Assets/images/naver.png';
 
 const NaverLogin = () => {
   const naverRef = useRef<any>();
@@ -12,7 +12,7 @@ const NaverLogin = () => {
     <>
       <NaverIdLogin ref={naverRef} id='naverIdLogin' />
       <NaverLoginBtn onClick={handleNaverLogin}>
-        <NaverIcon src={naver} alt='navericon' />
+        <NaverIcon src={naverIcon} alt='navericon' />
         <NaverLoginTitle>네이버로 시작하기</NaverLoginTitle>
         <div style={{ width: '40px' }}></div>
       </NaverLoginBtn>

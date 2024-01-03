@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import {
   QueryClient,
   QueryClientProvider,
@@ -14,6 +15,8 @@ import { worker } from './Mocks/worker';
 import 'react-toastify/dist/ReactToastify.css';
 
 if (process.env.NODE_ENV === 'development') worker.start();
+
+const googleClientId: any = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 /**
  * defaultOptions queries
@@ -93,7 +96,9 @@ root.render(
       theme='light'
     />
     <BrowserRouter>
-      <App />
+      <GoogleOAuthProvider clientId={googleClientId}>
+        <App />
+      </GoogleOAuthProvider>
     </BrowserRouter>
   </QueryClientProvider>
 );
