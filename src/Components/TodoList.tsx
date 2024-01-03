@@ -22,7 +22,7 @@ const TodoList = ({
           onChange={(v: any) => MainView?.handleEditChange(item, v)}
         />
       ) : (
-        <div className='title'>{item?.title}</div>
+        <div>{item?.title}</div>
       )}
       <div className='btn-container'>
         {isEdit && isEditObject?.id === item.id ? (
@@ -53,16 +53,11 @@ export default TodoList;
 
 const Item = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 
   .btn-container {
     display: flex;
     margin-left: 10px;
-  }
-
-  .title {
-    font-size: 18px;
-    font-weight: bold;
   }
 
   .btn {

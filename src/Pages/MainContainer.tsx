@@ -7,7 +7,6 @@ import TodoList from '../Components/TodoList';
 
 const MainContainer = () => {
   // hook
-  const btnRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const editInputRef = useRef<HTMLInputElement | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -16,7 +15,6 @@ const MainContainer = () => {
   // query
   const { postsDatas, isLoading, isError, error, refetch } = useGetDataQuery();
   const MainView = MainViewModel({
-    btnRef,
     inputRef,
     setIsEditObject,
     setIsEdit,
@@ -27,12 +25,7 @@ const MainContainer = () => {
   if (isError) return <>{error?.message}</>;
   return (
     <div>
-      <TodoInput
-        isEdit={isEdit}
-        MainView={MainView}
-        inputRef={inputRef}
-        btnRef={btnRef}
-      />
+      <TodoInput isEdit={isEdit} MainView={MainView} inputRef={inputRef} />
       {postsDatas?.map((item: any) => {
         return (
           <TodoList
