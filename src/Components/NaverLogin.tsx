@@ -13,7 +13,7 @@ const NaverLogin = () => {
       <NaverIdLogin ref={naverRef} id='naverIdLogin' />
       <NaverLoginBtn onClick={handleNaverLogin}>
         <NaverIcon src={naver} alt='navericon' />
-        <NaverLoginTitle>네이버로 로그인</NaverLoginTitle>
+        <NaverLoginTitle>네이버로 시작하기</NaverLoginTitle>
         <div style={{ width: '40px' }}></div>
       </NaverLoginBtn>
     </>
