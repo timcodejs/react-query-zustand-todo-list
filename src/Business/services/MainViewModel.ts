@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { usePostActions } from '../../Store/stores/postStore';
-import { useAlertActions } from '../../Store/stores/alertStore';
+import { usePostStore } from '../../Store/stores/postStore';
+import { useAlertStore } from '../../Store/stores/alertStore';
 import {
   usePostDataQuery,
   useDeleteDataQuery,
@@ -9,6 +9,7 @@ import {
 import { IData, MainViewModelData } from '../../Utility/utils/Types';
 
 export const MainViewModel = ({
+  btnRef,
   inputRef,
   setIsEditObject,
   setIsEdit,
@@ -20,13 +21,25 @@ export const MainViewModel = ({
   });
 
   // store
-  const { setHandler } = usePostActions();
-  const { setAlertText } = useAlertActions();
+  const { setHandler } = usePostStore();
+  const { setAlertText } = useAlertStore();
 
   // query
   const onSaveData = usePostDataQuery(data);
   const onDeleteData = useDeleteDataQuery(data);
   const onUpdateData = useUpdateDataQuery(data);
+
+  useEffect(() => {
+    if (btnRef?.current)
+      if (
+        inputRef?.current?.value !== '' &&
+        inputRef?.current?.value !== undefined
+      ) {
+        btnRef.current.style.backgroundColor = '#191970';
+      } else {
+        btnRef.current.style.backgroundColor = '#8d8d8d';
+      }
+  }, [btnRef?.current, inputRef?.current?.value]);
 
   useEffect(() => {
     if (onDeleteData?.isSuccess) {
@@ -70,6 +83,8 @@ export const MainViewModel = ({
       onSaveData.mutate();
       setHandler(data);
       setAlertText('추가');
+    } else {
+      setHandler({ title: 'void' });
     }
     if (inputRef?.current) inputRef.current.value = '';
   };

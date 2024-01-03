@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useInView } from 'react-intersection-observer';
 import { useGetScrollDataQuery } from '../Store/queries/scrollQuery';
@@ -23,7 +23,7 @@ const ScrollContainer = () => {
     <>
       {scrollDatas?.pages?.map((page: any, idx: number) => {
         return (
-          <Fragment key={idx}>
+          <div key={idx}>
             {page?.items?.map((e: any, i: number) => {
               return (
                 <div key={i}>
@@ -32,7 +32,7 @@ const ScrollContainer = () => {
                 </div>
               );
             })}
-          </Fragment>
+          </div>
         );
       })}
       <div>
