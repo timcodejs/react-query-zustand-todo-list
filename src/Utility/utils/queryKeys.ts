@@ -7,6 +7,12 @@ export const posts = createQueryKeys('posts', {
   updateData: (storeCode: string) => [storeCode],
 });
 
+export const auths = createQueryKeys('auths', {
+  kakaoToken: (storeCode: string) => [storeCode],
+  kakaoInfo: (storeCode: string) => [storeCode],
+  kakaoLogout: (storeCode: string) => [storeCode],
+});
+
 export const scroll = createQueryKeys('scroll', {
   getScroll: (storeCode: string) => [storeCode],
 });

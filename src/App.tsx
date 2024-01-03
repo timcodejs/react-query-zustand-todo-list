@@ -25,7 +25,7 @@ function App() {
           >
             <Routes>
               <Route path='/' element={<MainContainer />} />
-              <Route path='/auth' element={<LoginContainer />} />
+              <Route path='/oauth' element={<LoginContainer />} />
               <Route path='/scroll' element={<ScrollContainer />} />
             </Routes>
           </ErrorBoundary>
