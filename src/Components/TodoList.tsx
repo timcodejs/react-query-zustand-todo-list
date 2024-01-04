@@ -59,7 +59,7 @@ const Item = styled.div`
   padding: 10px 0;
 
   input {
-    width: 50vw;
+    width: 510px;
     margin-right: 10px;
     border: 1px solid #8d8d8d;
     box-sizing: border-box;
@@ -74,7 +74,7 @@ const Item = styled.div`
   }
 
   .title {
-    width: 50vw;
+    width: 510px;
     font-size: 18px;
     font-weight: bold;
     padding-left: 10px;

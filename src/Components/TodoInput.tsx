@@ -42,7 +42,7 @@ const Input = styled.div`
   }
 
   .input-text {
-    width: 50vw;
+    width: 500px;
     height: 40px;
     margin-right: 5px;
     border: 1px solid #8d8d8d;
@@ -53,7 +53,7 @@ const Input = styled.div`
   }
 
   .input-btn {
-    width: 10vw;
+    width: 100px;
     height: 40px;
     color: #fff;
     border: 0;

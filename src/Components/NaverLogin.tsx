@@ -14,7 +14,7 @@ const NaverLogin = () => {
       <NaverLoginBtn onClick={handleNaverLogin}>
         <NaverIcon src={naverIcon} alt='navericon' />
         <NaverLoginTitle>네이버로 시작하기</NaverLoginTitle>
-        <div style={{ width: '40px' }}></div>
+        <div style={{ width: '45px' }}></div>
       </NaverLoginBtn>
     </>
   );
@@ -39,7 +39,7 @@ const NaverLoginBtn = styled.button`
 `;
 
 const NaverIcon = styled.img`
-  width: 40px;
+  width: 45px;
 `;
 
 const NaverLoginTitle = styled.span`
