@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const SearchList = ({ status, searchDatas, onHandleList }: any) => {
+const SearchList = ({ status, isEnter, searchDatas, onHandleList }: any) => {
   const getDataByStatus = () => {
     switch (status) {
       case 'loading':
@@ -9,22 +9,26 @@ const SearchList = ({ status, searchDatas, onHandleList }: any) => {
         return <span>Error: {status?.error.message}</span>;
       default:
         return (
-          <ResultWrap>
-            <div>
-              <div className='recommend-text'>추천 검색어</div>
-              {searchDatas?.items?.map((item: any, idx: number) => {
-                return (
-                  <li
-                    key={idx}
-                    value={item.title}
-                    onClick={() => onHandleList(item.title)}
-                  >
-                    {item.title}
-                  </li>
-                );
-              })}
-            </div>
-          </ResultWrap>
+          <>
+            {isEnter === true && (
+              <ResultWrap>
+                <div>
+                  <div className='recommend-text'>추천 검색어</div>
+                  {searchDatas?.items?.map((item: any, idx: number) => {
+                    return (
+                      <li
+                        key={idx}
+                        value={item.title}
+                        onClick={() => onHandleList(item.title)}
+                      >
+                        {item.title}
+                      </li>
+                    );
+                  })}
+                </div>
+              </ResultWrap>
+            )}
+          </>
         );
     }
   };
@@ -35,10 +39,12 @@ const SearchList = ({ status, searchDatas, onHandleList }: any) => {
 export default SearchList;
 
 const ResultWrap = styled.ul`
+  position: absolute;
   margin: 0;
   padding: 0;
   width: 500px;
   border: 1px solid #d9d9d9;
+  background-color: #fff;
   border-radius: 15px;
   list-style: none;
 

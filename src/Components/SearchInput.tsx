@@ -1,11 +1,17 @@
 import styled from '@emotion/styled';
 
-const SearchInput = ({ btnRef, inputRef, onChangeInput }: any) => {
+const SearchInput = ({
+  btnRef,
+  inputRef,
+  handleSubmit,
+  onChangeInput,
+}: any) => {
   return (
     <Input>
       <form
         onSubmit={(e: any) => {
           e.preventDefault();
+          handleSubmit();
         }}
       >
         <div>

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useGetSearchDataQuery } from '../../Store/queries/searchQuery';
 
 export const SearchViewModel = ({ btnRef, inputRef }: any) => {
+  const [result, setResult] = useState();
+  const [isEnter, setIsEnter] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
 
   // query
@@ -34,10 +36,24 @@ export const SearchViewModel = ({ btnRef, inputRef }: any) => {
 
   const onChangeInput = useCallback(
     (e: any) => {
+      setIsEnter(true);
       debounce(setInputValue(e.target.value), 500);
     },
     [inputValue]
   );
 
-  return { searchDatas, status, onChangeInput, onHandleList };
+  const handleSubmit = () => {
+    setIsEnter(false);
+    setResult(searchDatas.items);
+  };
+
+  return {
+    searchDatas,
+    status,
+    result,
+    isEnter,
+    onChangeInput,
+    onHandleList,
+    handleSubmit,
+  };
 };
