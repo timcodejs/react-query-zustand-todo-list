@@ -41,6 +41,10 @@ const Input = styled.div`
     display: flex;
   }
 
+  input:focus {
+    outline: none;
+  }
+
   .input-text {
     width: 500px;
     height: 40px;

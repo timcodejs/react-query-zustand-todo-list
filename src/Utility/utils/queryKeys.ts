@@ -17,3 +17,7 @@ export const auths = createQueryKeys('auths', {
 export const scroll = createQueryKeys('scroll', {
   getScroll: (storeCode: string) => [storeCode],
 });
+
+export const search = createQueryKeys('search', {
+  getSearch: (storeCode: string) => [storeCode],
+});
