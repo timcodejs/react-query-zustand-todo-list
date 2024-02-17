@@ -6,6 +6,7 @@ import MainContainer from './Pages/MainContainer';
 import LoginContainer from './Pages/LoginContainer';
 import ScrollContainer from './Pages/ScrollContainer';
 import SearchContainer from './Pages/SearchContainer';
+import UploadContainer from './Pages/UploadContainer';
 import { AlertToast } from './Business/services/AlertToast';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route path='/oauth' element={<LoginContainer />} />
               <Route path='/scroll' element={<ScrollContainer />} />
               <Route path='/search' element={<SearchContainer />} />
+              <Route path='/upload' element={<UploadContainer />} />
             </Routes>
           </ErrorBoundary>
         )}

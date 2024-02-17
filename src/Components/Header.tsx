@@ -15,6 +15,7 @@ const Header = ({ children }: WrapperProps) => {
         <div onClick={() => navigation('/scroll')}>스크롤 테스트</div>
         <div onClick={() => navigation('/oauth')}>소셜 로그인</div>
         <div onClick={() => navigation('/search')}>검색</div>
+        <div onClick={() => navigation('/upload')}>업로드</div>
       </HeaderNav>
       {children}
     </>
