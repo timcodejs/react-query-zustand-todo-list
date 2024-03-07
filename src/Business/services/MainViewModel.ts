@@ -71,7 +71,7 @@ export const MainViewModel = ({
 
   const handleSubmit = () => {
     if (inputRef?.current?.value !== '') {
-      onSaveData.mutate();
+      onSaveData.mutate(data);
       setHandler(data);
       setAlertText('추가');
     } else {
@@ -85,11 +85,11 @@ export const MainViewModel = ({
       id: e.id,
       title: e.title,
     });
-    onDeleteData.mutate();
+    onDeleteData.mutate(data);
   };
 
   const handleEdit = () => {
-    onUpdateData.mutate();
+    onUpdateData.mutate(data);
     setIsEditObject(undefined);
     setIsEdit(false);
   };
