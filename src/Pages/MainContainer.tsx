@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import styled from '@emotion/styled';
 import { IData } from '../Utility/utils/Types';
 import { useGetDataQuery } from '../Store/queries/todoQuery';
 import { MainViewModel } from '../Business/services/MainViewModel';
@@ -12,9 +13,19 @@ const MainContainer = () => {
   const editInputRef = useRef<HTMLInputElement | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isEditObject, setIsEditObject] = useState<IData>();
+  const [pageLoad, setPageLoad] = useState<boolean>(false);
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setPageLoad(true);
+    }, 3000);
+
+    return () => clearTimeout(time);
+  }, []);
 
   // query
-  const { postsDatas, isLoading, isError, error, refetch } = useGetDataQuery();
+  const { postsDatas, isLoading, isError, error, refetch } =
+    useGetDataQuery(pageLoad);
   const MainView = MainViewModel({
     btnRef,
     inputRef,
@@ -27,6 +38,7 @@ const MainContainer = () => {
   if (isError) return <>{error?.message}</>;
   return (
     <div>
+      {!pageLoad && <Loading />}
       <TodoInput
         isEdit={isEdit}
         MainView={MainView}
@@ -52,3 +64,12 @@ const MainContainer = () => {
 };
 
 export default MainContainer;
+
+const Loading = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+`;

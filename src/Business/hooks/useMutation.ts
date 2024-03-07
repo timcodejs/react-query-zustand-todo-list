@@ -16,12 +16,6 @@ export const useMutation = (
   return useMutationOrigin<any, Error>({
     mutationKey,
     mutationFn,
-    onSuccess: (data) => {
-      return data;
-    },
-    onError: (err) => {
-      console.log(err);
-    },
     ...options,
   });
 };

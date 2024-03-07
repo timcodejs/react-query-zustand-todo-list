@@ -55,15 +55,6 @@ export const MainViewModel = ({
     }
   }, [onUpdateData?.isSuccess]);
 
-  useEffect(() => {
-    if (
-      onSaveData?.isSuccess ||
-      onDeleteData?.isSuccess ||
-      onUpdateData?.isSuccess
-    )
-      refetch();
-  }, [onSaveData.isSuccess, onDeleteData.isSuccess, onUpdateData.isSuccess]);
-
   const handleChange = (e: any) => {
     setData({
       id: Math.floor(Math.random() * (100 - 4) + 4),
