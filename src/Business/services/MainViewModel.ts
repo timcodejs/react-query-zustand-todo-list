@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePostStore } from '../../Store/stores/postStore';
 import { useAlertStore } from '../../Store/stores/alertStore';
 import {
   usePostDataQuery,
   useDeleteDataQuery,
   useUpdateDataQuery,
+  useGetDataQuery,
 } from '../../Store/queries/todoQuery';
-import { IData, MainViewModelData } from '../../Utility/utils/Types';
+import { IData } from '../../Utility/utils/Types';
 
-export const MainViewModel = ({
-  btnRef,
-  inputRef,
-  setIsEditObject,
-  setIsEdit,
-  refetch,
-}: MainViewModelData) => {
+export const MainViewModel = () => {
+  const btnRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const editInputRef = useRef<HTMLInputElement | null>(null);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isEditObject, setIsEditObject] = useState<IData>();
+  const [pageLoad, setPageLoad] = useState<boolean>(false);
   const [data, setData] = useState<IData>({
     id: 0,
     title: '',
@@ -25,9 +26,19 @@ export const MainViewModel = ({
   const { setAlertText } = useAlertStore();
 
   // query
+  const { postsDatas, isLoading, isError, error, refetch } =
+    useGetDataQuery(pageLoad);
   const onSaveData = usePostDataQuery(data);
   const onDeleteData = useDeleteDataQuery(data);
   const onUpdateData = useUpdateDataQuery(data);
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setPageLoad(true);
+    }, 3000);
+
+    return () => clearTimeout(time);
+  }, []);
 
   useEffect(() => {
     if (btnRef?.current)
@@ -96,14 +107,26 @@ export const MainViewModel = ({
 
   return {
     data,
+    isEdit,
+    isEditObject,
+    btnRef,
+    inputRef,
+    editInputRef,
+    pageLoad,
+    onSaveData,
+    onDeleteData,
+    onUpdateData,
+    postsDatas,
+    isLoading,
+    isError,
+    error,
     setData,
+    setIsEdit,
+    setIsEditObject,
     handleChange,
     handleEditChange,
     handleSubmit,
     handleRemove,
     handleEdit,
-    onSaveData,
-    onDeleteData,
-    onUpdateData,
   };
 };

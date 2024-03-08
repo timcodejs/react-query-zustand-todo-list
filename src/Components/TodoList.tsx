@@ -3,21 +3,13 @@ import editPNG from '../Assets/images/pen.png';
 import checkPNG from '../Assets/images/check.png';
 import deletePNG from '../Assets/images/delete.png';
 
-const TodoList = ({
-  item,
-  isEdit,
-  isEditObject,
-  editInputRef,
-  MainView,
-  setIsEdit,
-  setIsEditObject,
-}: any) => {
+const TodoList = ({ item, MainView }: any) => {
   return (
     <Item key={item?.id}>
-      {isEdit && isEditObject?.id === item.id ? (
+      {MainView?.isEdit && MainView?.isEditObject?.id === item.id ? (
         <input
           type='text'
-          ref={editInputRef}
+          ref={MainView?.editInputRef}
           defaultValue={item?.title}
           onChange={(v: any) => MainView?.handleEditChange(item, v)}
         />
@@ -25,7 +17,7 @@ const TodoList = ({
         <div className='title'>{item?.title}</div>
       )}
       <div className='btn-container'>
-        {isEdit && isEditObject?.id === item.id ? (
+        {MainView?.isEdit && MainView?.isEditObject?.id === item.id ? (
           <div className='btn c-btn' onClick={MainView?.handleEdit}>
             <img src={checkPNG} alt='체크 이미지' />
           </div>
@@ -33,8 +25,8 @@ const TodoList = ({
           <div
             className='btn e-btn'
             onClick={() => {
-              setIsEditObject(item);
-              setIsEdit(true);
+              MainView?.setIsEditObject(item);
+              MainView?.setIsEdit(true);
             }}
           >
             <img src={editPNG} alt='연필 이미지' />

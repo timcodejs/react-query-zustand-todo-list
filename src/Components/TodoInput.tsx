@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-const TodoInput = ({ isEdit, MainView, inputRef, btnRef }: any) => {
+const TodoInput = ({ MainView }: any) => {
   return (
     <Input>
-      {!isEdit && (
+      {!MainView?.isEdit && (
         <form
           onSubmit={(e: any) => {
             e.preventDefault();
@@ -15,12 +15,12 @@ const TodoInput = ({ isEdit, MainView, inputRef, btnRef }: any) => {
               className='input-text'
               type='text'
               onChange={MainView?.handleChange}
-              ref={inputRef}
+              ref={MainView?.inputRef}
             />
           </div>
           <div>
             <input
-              ref={btnRef}
+              ref={MainView?.btnRef}
               className='input-btn'
               type='submit'
               value='할 일 추가'
