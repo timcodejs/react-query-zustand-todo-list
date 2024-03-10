@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import FileInput from '../Components/FileInput';
+import FileInput2 from '../Components/FileInput2';
 
 const UploadContainer = () => {
   const [files, setFiles] = useState<[]>([]);
-
-  console.log('files', files);
+  const [files2, setFiles2] = useState<[]>([]);
 
   return (
     <div>
@@ -16,6 +16,16 @@ const UploadContainer = () => {
         fullWidth={false}
         errors={undefined}
         onChange={(e) => setFiles(e)}
+      />
+      <div style={{ margin: '20px 0' }} />
+      <FileInput2
+        value={files2}
+        name={'file_upload'}
+        placeholder={'Drag & Drop \n or browse'}
+        accept={'image/*'}
+        fullWidth={false}
+        errors={undefined}
+        onChange={(e) => setFiles2(e)}
       />
     </div>
   );
